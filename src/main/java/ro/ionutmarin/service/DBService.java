@@ -36,11 +36,12 @@ public class DBService {
             }
 
             PreparedStatement st = conn.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS recipe (ingredients VARCHAR(1000) NOT NULL UNIQUE, recipes VARCHAR(1000) NOT NULL)");
+                    "CREATE TABLE IF NOT EXISTS recipe (ingredients VARCHAR(1000) NOT NULL UNIQUE, recipes TEXT NOT NULL)");
             st.executeUpdate();
 
         } catch (Exception e) {
             System.out.println("Exception catch on database connection:" +  e.getCause());
+            //System.exit(1);
         }
 
         System.err.println("Connected to db");
@@ -49,7 +50,7 @@ public class DBService {
 
     public static void insertRecipe(Connection dbConn, String ingredients, List<Recipe> recipes) throws SQLException {
         PreparedStatement insert = dbConn.prepareStatement(
-                "INSERT INTO recipe (ingredients, recipes) VALUES (?, ?);");
+                "INSERT INTO recipe (ingredients, recipes) VALUES (?, ?)");
         insert.setString(1, ingredients);
         Gson gson = new Gson();
         String jsonRecipes = gson.toJson(recipes);

@@ -4,6 +4,8 @@ WORKDIR /code
 
 # Adding source, compile and package into a fat jar
 COPY . /code
+RUN ["mvn", "dependency:resolve"]
+RUN ["mvn", "verify"]
 RUN ["mvn", "package"]
 
 FROM openjdk:8-jre-alpine
