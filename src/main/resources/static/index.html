@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="recipeFinderApp">
+<head>
+    <title>Localization via Social Networks</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=yes">
+    <meta charset="utf-8">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular-route.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-resource.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.css'
+          type='text/css' media='all'/>
+    <script type='text/javascript'
+            src='//cdnjs.cloudflare.com/ajax/libs/angular-loading-bar/0.9.0/loading-bar.min.js'></script>
+    <!--jQuery-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
+
+    <script src="js/app.module.js"></script>
+    <script src="js/app.service.js"></script>
+    <script src="js/app.directive.js"></script>
+    <script src="js/app.controller.js"></script>
+</head>
+<body style="background-color: #e4eaea; text-align:center">
+<h2 align="center">Recipe finder application</h2>
+<br>
+<br>
+<br>
+<br>
+<div id="main" style="text-align: center;" ng-controller="recipeFinderCtrl">
+    <!--start-->
+    <div class="row" style="margin-left: 2%; margin-right: 2%">
+        <div class="col-md-12">
+            <div>
+                <div>
+                    <div class="search-container">
+                        <label for="ingredients">Ingredients list separated by comma: </label>
+                        <div align="center">
+                            <input id="ingredients" style="width: 600px;" ng-model="ingredients" name="ingredients" type="text" placeholder="" class="form-control" required="">
+                        </div>
+                        <div>
+                            <button ng-click="getRecipes()" class="btn btn-primary btn-lg">Search</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <br>
+        <br>
+        <br>
+
+        <div class="row" style="margin-left: 2%; margin-right: 2%; margin-top: 2%">
+            <div >
+                <div style="border-style: groove;">
+                    <div style="border-style: groove;">
+                        <h3 id="recipe-title">Recipes</h3>
+                        <p id="recipe-hide" ng-hide="recipes.length">No results.</p>
+                        <recipe-view id="recipe-elem" ng-repeat="l in recipes"
+                                         recipe="l"></recipe-view>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+<footer style="text-align: right; margin-left: 2%; margin-right: 2%"">
+    <small>&copy; Copyright 2017, Ionut Marin</small>
+</footer>
+</html>​

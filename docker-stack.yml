@@ -1,0 +1,53 @@
+version: "3"
+services:
+  
+  viewer:
+    image: frontend:latest
+    ports:
+      - 4000:4000
+    depends_on:
+      - worker
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 2
+      restart_policy:
+        condition: on-failure
+  db:
+    image: postgres:9.4
+    volumes:
+      - "db-data:/var/lib/postgresql/data"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+
+  worker:
+    image: backend:latest
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    deploy:
+      mode: replicated
+      replicas: 1
+      labels: [APP=VOTING]
+      restart_policy:
+        condition: on-failure
+        delay: 10s
+        max_attempts: 3
+        window: 120s
+      placement:
+        constraints: [node.role == manager]
+
+  visualizer:
+    image: dockersamples/visualizer:stable
+    ports:
+      - "8081:8080"
+    stop_grace_period: 1m30s
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    deploy:
+      placement:
+        constraints: [node.role == manager]
+volumes:
+  db-data:
