@@ -30,7 +30,7 @@ services:
     deploy:
       mode: replicated
       replicas: 1
-      labels: [APP=VOTING]
+      labels: [APP=RECIPE_FINDER]
       restart_policy:
         condition: on-failure
         delay: 10s
