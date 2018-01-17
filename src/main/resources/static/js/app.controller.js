@@ -24,10 +24,10 @@
                 console.log($scope.recipes);
             });
 
-            recipeFinderService.getCachedRecipes().success(function (data) {
-                $scope.recipes = data;
-                console.log($scope.recipes);
-            });
+            // recipeFinderService.getCachedRecipes().success(function (data) {
+            //     $scope.recipes = data;
+            //     console.log($scope.recipes);
+            // });
 
         };
     };

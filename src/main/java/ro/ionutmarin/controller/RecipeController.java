@@ -27,17 +27,23 @@ public class RecipeController {
 
     @RequestMapping(method = {RequestMethod.GET}, produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody
-    ArrayList<Recipe> findRecipes(@RequestParam(value="ingredients", required=true) String ingredients) {
+    ArrayList<Recipe> findRecipes(@RequestParam(value="ingredients", required=true) String ingredients) throws SQLException, InterruptedException {
         ArrayList<Recipe> recipesList = null;
         try {
             recipesList = recipeService.findRecipes(ingredients);
             recipes = recipesList;
-
-            insertRecipe(DBService.connectToDB("db"), ingredients, recipes);
+            if(recipesList != null || recipesList.isEmpty() == false)
+                insertRecipe(DBService.connectToDB("db"), ingredients, recipes);
         } catch (Exception e) {
             System.out.println(e.getCause().getMessage());
             recipesList = DBService.getRecipeByIngredients(DBService.connectToDB("db"), ingredients);
         } finally {
+            if (recipesList == null) {
+                recipesList = DBService.getRecipeByIngredients(DBService.connectToDB("db"), ingredients);
+            }
+            if (recipesList != null)
+                System.out.println(recipesList.toString());
+            else System.out.println("Empty list");
             return recipesList;
         }
     }

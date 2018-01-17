@@ -76,15 +76,12 @@ public class DBService {
             // Converts JSON string into a collection of Student object.
             Gson gson = new Gson();
             Type type = new TypeToken<ArrayList<Recipe>>() {}.getType();
-            recipes.addAll(gson.fromJson(recipesJson, type));
+            if(recipesJson != null && recipesJson != "")
+                recipes.addAll(gson.fromJson(recipesJson, type));
         }
         rs.close();
         ps.close();
 
         return recipes;
-    }
-
-    public static void main(String[] args) throws SQLException, InterruptedException {
-        connectToDB("db");
     }
 }
